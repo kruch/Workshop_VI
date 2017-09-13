@@ -1,0 +1,14 @@
+{% extends '::main.html.twig' %}
+
+{% block body %}
+    <h1>Title: {{ notice.title }}</h1>
+    {% if notice.description %}
+        <p>Description: {{ notice.description }}</p>
+    {% endif %}
+    {% if notice.category %}
+        <p>Category: {{ notice.category }}</p>
+        <p>Created: {{ notice.date|date('Y-m-d\\TH:i:sP') }} <= coz fuck you! see this ugly timestamp... look at it! </p>
+    {% endif %}
+
+    <a href="{{ path('app_notice_showall') }}">Back to list</a>
+{% endblock %}

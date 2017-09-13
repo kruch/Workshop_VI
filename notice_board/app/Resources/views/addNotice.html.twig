@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+{% block body %}
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+    <div><input type="submit"></div>
+        {{ form_end(form) }}
+
+
+
+{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>

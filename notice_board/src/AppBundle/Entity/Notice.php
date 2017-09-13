@@ -1,0 +1,199 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use DateTime;
+
+/**
+ * Notice
+ *
+ * @ORM\Table(name="notice")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\NoticeRepository")
+ */
+class Notice
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="category", type="integer")
+     */
+    private $category;
+    /**
+     * @var date
+     *
+     * @ORM\Column(name="creation_date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="notice")
+     */
+    private $comments;
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Notice
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Notice
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set category
+     *
+     * @param int $category
+     * @return Notice
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return int
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function  __contruct()
+    {
+          $this->date=new DateTime();
+    }
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     * @return Notice
+     */
+    public function addComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+}

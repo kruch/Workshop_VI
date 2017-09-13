@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Moterfckin' main page{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+
+{% block body %}
+Welcome to the main page<br><br>
+
+    <a href="/nb/create">Add new damn notice</a>
+<br><br>
+
+    {% for notice in notices %}
+        <p>Notice number: <a href="/nb/show/{{ notice.id }}"> {{ notice.title }} </a> Created: {{ notice.date|date('d-m-Y') }} |  <a href="/nb/del/{{notice.id}}"> <== del dis, mate</a><br></p>
+        <a href="{{ path('app_comment_addcomment', {'id': notice.id}) }}"><button type="submit">Comment</button></a>
+        <hr>
+
+    {% endfor %}
+
+
+{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>
