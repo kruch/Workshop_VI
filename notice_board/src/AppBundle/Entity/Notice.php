@@ -50,6 +50,11 @@ class Notice
     private $date;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="notices")
+     */
+    private $user;
+
+    /**
      * @return mixed
      */
     public function getDate()
@@ -63,6 +68,22 @@ class Notice
     public function setDate($date)
     {
         $this->date = $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
 

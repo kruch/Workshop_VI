@@ -10,16 +10,17 @@
 
 {% block body %}
 Welcome to the main page<br><br>
-
-    <a href="/nb/create">Add new damn notice</a>
+<a href="/logout">log out</a>
+    <a href="/create">Add new damn notice</a>
 <br><br>
 
     {% for notice in notices %}
-        <p>Notice number: <a href="/nb/show/{{ notice.id }}"> {{ notice.title }} </a> Created: {{ notice.date|date('d-m-Y') }} |  <a href="/nb/del/{{notice.id}}"> <== delete notice, mate</a><br></p>
+
+        <p>{{ notice.user }}: <a href="/show/{{ notice.id }}"> {{ notice.title }} </a> Created: {{ notice.date|date('d-m-Y') }} |  <a href="/del/{{notice.id}}"> <== delete notice, mate</a><br></p>
         <a href="{{ path('app_comment_addcomment', {'id': notice.id}) }}"><button type="submit">Comment</button></a>
         <br><br>Comments:
         {% for comment in notice.comments %}
-        <p>{{ comment.text }} || {{ comment.creationdate|date('d-m-Y')  }}</p>
+        <p>{{ comment.user }}:{{ comment.text }} || {{ comment.creationdate|date('d-m-Y')  }}</p>
         {% endfor %}
         <hr>
     {% endfor %}

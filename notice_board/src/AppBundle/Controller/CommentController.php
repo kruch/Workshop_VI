@@ -35,6 +35,10 @@ class CommentController extends Controller
         $comment->setNotice($notice);
         $notice->addComment($comment);
 
+        $user=$this->getUser();
+        $comment->setUser($user);
+        $user->addComment($comment);
+
         $comment->setCreationDate(new \DateTime());
 
         $form=$this->createForm(CommentType::class,$comment);

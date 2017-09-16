@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Notice;
 use AppBundle\Entity\Comment;
 use AppBundle\Form\NoticeType;
+use AppBundle\Entity\User;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -12,9 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-/**
- * @Route("/nb")
- */
+
 class NoticeController extends Controller
 {
     /**
@@ -27,6 +26,11 @@ class NoticeController extends Controller
 
         $notice= new Notice();
         $notice->setDate(new \DateTime());
+
+        $user=$this->getUser();
+        $notice->setUser($user);
+        $user->addNotice($notice);
+
         $form=$this->createForm(NoticeType::class,$notice);
         $form->handleRequest($request);
 
@@ -41,7 +45,7 @@ class NoticeController extends Controller
     }
 
     /**
-     * @Route("/show")
+     * @Route("/")
      * @Template("main_view.html.twig")
      */
     public function showAll()
