@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use AppBundle\Entity\Notice;
 
 class CommentController extends Controller
 {
@@ -22,25 +22,30 @@ class CommentController extends Controller
     {
         $comment = new Comment();
 
-        $notice=$this->getDoctrine()->getRepository("Notice")->find($id);
+        $notice=$this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Notice')
+            ->find($id);
 
         if(!$notice)
         {
             throw $this->createNotFoundException('notice not found');
         }
 
-        $comment->setNoticeId($notice);
+        $comment->setNotice($notice);
         $notice->addComment($comment);
 
-        $comment->setDate(new \DateTime());
+        $comment->setCreationDate(new \DateTime());
+
         $form=$this->createForm(CommentType::class,$comment);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
             return $this->redirectToRoute('app_notice_showall');
         }
-        return['form'=>$form->createView(), 'comment'=>$comment, 'notice'=>$notice];
+        return['form'=>$form->createView(), 'notice'=>$notice, 'comment'=>$comment];
     }
 }

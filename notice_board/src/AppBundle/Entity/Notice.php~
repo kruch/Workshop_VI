@@ -71,6 +71,7 @@ class Notice
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="notice")
      */
     private $comments;
+
     /**
      * Get id
      *
@@ -150,10 +151,44 @@ class Notice
         return $this->category;
     }
 
-    public function  __contruct()
+    public function __contruct()
     {
           $this->date=new DateTime();
+          $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
+
+    /**
+     * Add comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     * @return Notice
+     */
+    public function addComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

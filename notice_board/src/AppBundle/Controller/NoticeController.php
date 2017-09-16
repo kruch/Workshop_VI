@@ -42,7 +42,7 @@ class NoticeController extends Controller
 
     /**
      * @Route("/show")
-     * @Template("main.html.twig")
+     * @Template("main_view.html.twig")
      */
     public function showAll()
     {
@@ -56,7 +56,7 @@ class NoticeController extends Controller
 
     /**
      * @Route("/show/{id}")
-     * @Template("notice.html.twig")
+     * @Template("notice_details.html.twig")
      */
     public function showNotice($id)
     {

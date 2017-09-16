@@ -71,6 +71,7 @@ class Notice
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="notice")
      */
     private $comments;
+
     /**
      * Get id
      *
@@ -150,19 +151,13 @@ class Notice
         return $this->category;
     }
 
-    public function  __contruct()
+    public function __contruct()
     {
           $this->date=new DateTime();
+          $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add comments
@@ -196,4 +191,12 @@ class Notice
     {
         return $this->comments;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

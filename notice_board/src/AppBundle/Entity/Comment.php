@@ -105,7 +105,7 @@ class Comment
      * @param \AppBundle\Entity\Notice $notice
      * @return Comment
      */
-    public function setNotice(\AppBundle\Entity\Notice $notice = null)
+    public function setNotice($notice)
     {
         $this->notice = $notice;
 
@@ -121,4 +121,5 @@ class Comment
     {
         return $this->notice;
     }
+
 }
