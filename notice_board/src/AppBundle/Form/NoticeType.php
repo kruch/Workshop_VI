@@ -13,7 +13,7 @@ class NoticeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('description')->add('category');
+        $builder->add('title')->add('description')->add('category', null, ['choice_label'=>'name']);
     }
     
     /**

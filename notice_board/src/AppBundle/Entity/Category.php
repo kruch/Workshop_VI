@@ -28,6 +28,10 @@ class Category
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Notice", mappedBy="category")
+     */
+    private $notices;
 
     /**
      * Get id

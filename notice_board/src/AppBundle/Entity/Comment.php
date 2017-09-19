@@ -15,12 +15,14 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Notice", inversedBy="comments")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $notice;
 
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="comments")
+     *
      */
     private $user;
 

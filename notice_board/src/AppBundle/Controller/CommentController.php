@@ -52,4 +52,27 @@ class CommentController extends Controller
         }
         return['form'=>$form->createView(), 'notice'=>$notice, 'comment'=>$comment];
     }
+
+
+    /**
+     * @Route("/delcomment/{id}")
+     *
+     */
+    public function deleteComment($id)
+    {
+        $comment=$this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Comment')
+            ->find($id);
+
+        if(!$comment)
+        {
+            throw $this->createNotFoundException("can't find your stupid comment...");
+        }
+
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($comment);
+        $em->flush();
+        return $this->redirectToRoute('app_notice_showall');
+    }
 }

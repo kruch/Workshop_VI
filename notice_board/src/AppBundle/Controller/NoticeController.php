@@ -83,6 +83,38 @@ class NoticeController extends Controller
      */
     public function deleteNotice($id)
     {
+        $user=$this->getUser();
+
+
+        $notice=$this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Notice')
+            ->find($id);
+
+
+
+        if(!$notice)
+        {
+            throw $this->createNotFoundException("can't find your stupid post...");
+        }
+
+        if($user==$notice->getUser())
+        {
+            $em=$this->getDoctrine()->getManager();
+            $em->remove($notice);
+            $em->flush();
+            return $this->redirectToRoute('app_notice_showall');
+        }
+
+    }
+
+
+    /**
+     * @Route("/edit/{id}")
+     * @
+     *//*
+    public function editNotice($id)
+    {
         $notice=$this
             ->getDoctrine()
             ->getRepository('AppBundle:Notice')
@@ -90,17 +122,16 @@ class NoticeController extends Controller
 
         if(!$notice)
         {
-            throw $this->createNotFoundException("can't find your stupid post...");
+            throw $this->createNotFoundException("notice does not exist");
         }
 
         $em=$this->getDoctrine()->getManager();
-        $em->remove($notice);
+        $em->($notice);
         $em->flush();
-        return $this->redirectToRoute('app_notice_showall');
+
+
     }
 
-
-
-
+*/
 
 }

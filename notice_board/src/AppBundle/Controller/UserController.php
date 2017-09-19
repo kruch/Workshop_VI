@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -20,8 +21,16 @@ class UserController extends Controller
         return $this->render('user_register.html.twig');
     }
 
-    public function createUserAction()
+    /**
+     * @Route("/admin")
+     */
+    public function adminAction()
     {
+        $user = $this->getUser();
+        if($user->hasRole('ROLE_ADMIN')){
+            return $this->render('admin/admin.html.twig');
+        }
 
     }
+
 }

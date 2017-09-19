@@ -9,18 +9,42 @@
 <body>
 
 {% block body %}
-Welcome to the main page<br><br>
-<a href="/logout">log out</a>
+
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+      <p>  Logged as: {{ app.user.username }} <a href="/logout">Log out</a></p>
+
+
+    {% else %}
+
+    <p>Not logged in, please <a href="/login">Log in</a> or <a href="/register">Register</a></p>
+        <hr>
+
+    {% endif %}
+
+<br>Welcome to the main page<br><br>
+
     <a href="/create">Add new damn notice</a>
 <br><br>
 
     {% for notice in notices %}
 
-        <p>{{ notice.user }}: <a href="/show/{{ notice.id }}"> {{ notice.title }} </a> Created: {{ notice.date|date('d-m-Y') }} |  <a href="/del/{{notice.id}}"> <== delete notice, mate</a><br></p>
-        <a href="{{ path('app_comment_addcomment', {'id': notice.id}) }}"><button type="submit">Comment</button></a>
+        <p>{{ notice.user }}: <a href="/show/{{ notice.id }}"> {{ notice.title }} </a> Created: {{ notice.date|date('d-m-Y') }} |
+
+        {% if app.user.username is defined and app.user.username==notice.user %}
+            <a href="/del/{{notice.id}}"><button type="submit">Delete Comment</button></a></a><br></p>
+        {% endif %}
+
+        <a href="{{ path('app_comment_addcomment', {'id': notice.id}) }}"><button type="submit">Type a comment</button></a>
+
         <br><br>Comments:
         {% for comment in notice.comments %}
-        <p>{{ comment.user }}:{{ comment.text }} || {{ comment.creationdate|date('d-m-Y')  }}</p>
+
+        <p>{{ comment.text }} || {{ comment.creationdate|date('d-m-Y') }}</p>
+
+
+{% if app.user.username is defined and app.user.username==comment.user %}
+            <p>By: {{ comment.user }}<a href="/delcomment/{{comment.id}}"><button type="submit">Delete Comment</button></a></p>
+{% endif %}
         {% endfor %}
         <hr>
     {% endfor %}

@@ -23,6 +23,11 @@ class Notice
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", inversedBy="notices")
+     */
+    private $category;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -36,12 +41,7 @@ class Notice
      */
     private $description;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="category", type="integer")
-     */
-    private $category;
+
     /**
      * @var date
      *
