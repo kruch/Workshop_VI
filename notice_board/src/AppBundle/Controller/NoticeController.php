@@ -23,7 +23,6 @@ class NoticeController extends Controller
     public function createAction(Request $request)
     {
 
-
         $notice= new Notice();
         $notice->setDate(new \DateTime());
 
@@ -119,7 +118,9 @@ class NoticeController extends Controller
 
         if(!$notices)
         {
-            throw $this->createNotFoundException('Notice not found');
+           // throw $this->createNotFoundException('Notice not found');
+
+            return $this->redirectToRoute('app_notice_showall');
         }
         return['notices'=>$notices];
     }

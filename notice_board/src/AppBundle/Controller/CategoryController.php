@@ -2,10 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\CategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Category;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class CategoryController extends Controller
 {
@@ -33,26 +36,22 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("/admin/addcat")
+     * @Route("/admin/categories/add")
+     * @Template("comment/comment.html.twig")
      */
-  /*  public function addCategoryAction(Request $request)
+    public function addCategoryAction(Request $request)
     {
         $category= new Category();
 
-
-        $user=$this->getUser();
-        $category->setName($user);
-        ;
-
-        $form=$this->createForm(NoticeType::class,$category);
+        $form=$this->createForm(CategoryType::class,$category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
-            return $this->redirectToRoute('app_notice_showall');
+            return $this->redirectToRoute('app_category_category');
         }
-        return['form'=>$form->createView(), 'notice'=>$category];
-    }*/
+        return['form'=>$form->createView(), 'categories'=>$category];
+    }
 }
