@@ -1,0 +1,16 @@
+{%  block body %}
+<style>
+    table, th, td {
+    border: 1px solid black;
+    }
+</style>
+    <table style="width:50%">
+      <tr>  <th>user_id</th><th> username</th><th>user description</th><th>user action</th><th>DELETE USER</th></tr><br>
+
+    {% for user in users %}
+
+        <div><tr><td>{{ user.id }}</td><td>{{ user.username }}</td> <td>{{ user.description }}</td><td><a href=""><button>Edit user</button></a></td><td><a href=""><button>DELETE user</button></a></td></tr></div>
+
+    {% endfor %}
+</table>
+{% endblock %}

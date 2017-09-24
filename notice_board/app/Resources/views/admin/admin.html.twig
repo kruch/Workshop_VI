@@ -1,6 +1,12 @@
 {% block body %}
 
     <p>Welcome to admin panel, divide and conquer</p>
+    <hr>
+    <br>
+    <a href="{{ path('app_user_admineditusers') }}"><button type="submit">Users Panel</button></a>
+    <a href="{{ path('app_user_admineditnotices') }}"><button type="submit">Notice Edition</button></a>
+    <a href="{{ path('app_category_category') }}"><button type="submit">Category menagement</button></a>
+    <a href="{{ path('app_notice_showall') }}"> <button type="submit">Back to main page</button></a>
 
 
 

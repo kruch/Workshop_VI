@@ -37,8 +37,12 @@ class CommentController extends Controller
 
         $user=$this->getUser();
         $comment->setUser($user);
-        $user->addComment($comment);
-
+            if(!$user)
+            {
+                return $this->redirectToRoute('app_comment_notlogged');
+            }else {
+                $user->addComment($comment);
+            }
         $comment->setCreationDate(new \DateTime());
 
         $form=$this->createForm(CommentType::class,$comment);
@@ -74,5 +78,13 @@ class CommentController extends Controller
         $em->remove($comment);
         $em->flush();
         return $this->redirectToRoute('app_notice_showall');
+    }
+
+    /**
+     * @Route("/404")
+     */
+    public function notlogged()
+    {
+        return $this->render(':user:notloggeduser.html.twig');
     }
 }

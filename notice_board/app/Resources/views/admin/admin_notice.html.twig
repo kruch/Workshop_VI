@@ -1,0 +1,16 @@
+{%  block body %}
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+    <table style="width:50%">
+        <tr>  <th>notice_id</th><th>username</th><th>notice title</th><th>notice description</th><th>notice category</th><th>notice action</th><th>DELETE NOTICE</th></tr><br>
+
+        {% for notice in notices %}
+
+            <div><tr><td>{{ notice.id }}</td><td>{{ notice.user }}</td> <td>{{ notice.title }}</td><td>{{ notice.description }}</td><td>{{ notice.category.name }}</td><td><a href=""><button>Edit notice</button></a></td><td><a href=""><button>DELETE notice</button></a></td></tr></div>
+
+        {% endfor %}
+    </table>
+{% endblock %}

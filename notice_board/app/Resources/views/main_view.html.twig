@@ -1,37 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <title>{% block title %}Moterfckin' main page{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-</head>
-<body>
+{% extends 'base.html.twig' %}
+
+
 
 {% block body %}
 
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_user_admin') }}"><button>Admin panel</button></a>
+    {% endif %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-      <p>  Logged as: {{ app.user.username }} <a href="/logout">Log out</a></p>
-
-
+        <p>  Logged as: {{ app.user.username }} <a href="/profile/edit"><a href
+                <br><a href="/profile/edit"><button>Edit your profile</button></a>
+                <a href="{{ path('app_notice_editusernotices') }}"><button>Edit your notices</button></a>
+                <a href="/logout"><button>Log out</button></a></p>
     {% else %}
+
 
     <p>Not logged in, please <a href="/login">Log in</a> or <a href="/register">Register</a></p>
         <hr>
 
     {% endif %}
 
-<br>Welcome to the main page<br><br>
 
-    <a href="/create">Add new damn notice</a>
+<br><h1>Welcome to the main page</h1><br><br>
+
+    <a href="/create"><button>Add new notice</button></a>
 <br><br>
 
     {% for notice in notices %}
 
-        <p>{{ notice.user }}: <a href="/show/{{ notice.id }}"> {{ notice.title }} </a> Created: {{ notice.date|date('d-m-Y') }} |
+        <div>{{ notice.user }}: <a href="/show/{{ notice.id }}"> {{ notice.title }} </a> Created: {{ notice.date|date('d-m-Y') }} |
 
         {% if app.user.username is defined and app.user.username==notice.user %}
-            <a href="/del/{{notice.id}}"><button type="submit">Delete Comment</button></a></a><br></p>
+            <a href="/del/{{notice.id}}"><button type="submit">Delete Notice</button></a></a><br></div>
         {% endif %}
 
         <a href="{{ path('app_comment_addcomment', {'id': notice.id}) }}"><button type="submit">Type a comment</button></a>
@@ -52,5 +52,4 @@
 
 {% endblock %}
 {% block javascripts %}{% endblock %}
-</body>
-</html>
+

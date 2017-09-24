@@ -76,7 +76,6 @@ class NoticeController extends Controller
         return['notice'=>$notice];
     }
 
-
     /**
      * @Route("/del/{id}")
      *
@@ -85,13 +84,10 @@ class NoticeController extends Controller
     {
         $user=$this->getUser();
 
-
         $notice=$this
             ->getDoctrine()
             ->getRepository('AppBundle:Notice')
             ->find($id);
-
-
 
         if(!$notice)
         {
@@ -108,30 +104,48 @@ class NoticeController extends Controller
 
     }
 
-
     /**
-     * @Route("/edit/{id}")
-     * @
-     *//*
-    public function editNotice($id)
+     *@Route("/user/edit_notices")
+     * @Template("user/user_edit.html.twig")
+     */
+    public function editUserNotices()
     {
-        $notice=$this
+        //$user=$this->getUser();
+
+        $notices=$this
             ->getDoctrine()
             ->getRepository('AppBundle:Notice')
-            ->find($id);
+            ->findBy(['user'=>$this->getUser()]);
 
-        if(!$notice)
+        if(!$notices)
         {
-            throw $this->createNotFoundException("notice does not exist");
+            throw $this->createNotFoundException('Notice not found');
         }
-
-        $em=$this->getDoctrine()->getManager();
-        $em->($notice);
-        $em->flush();
-
-
+        return['notices'=>$notices];
     }
 
-*/
+    /**
+     * @Route("/editNotice/{id}")
+     * @Template("addNotice.html.twig")
+     */
+    public function editNoticeAction(Request $request, $id)
+    {
+        $notice = $this->getDoctrine()
+            ->getRepository('AppBundle:Notice')
+            ->find($id);
+        if(!$notice) {
+            throw $this->createNotFoundException('Notice not found');
+        }
+        $form = $this->createForm(NoticeType::class, $notice);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute('app_notice_editusernotices');
+        }
+        return['form' => $form->createView()];
+    }
+
+
 
 }

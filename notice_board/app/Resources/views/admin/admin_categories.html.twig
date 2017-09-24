@@ -1,0 +1,18 @@
+{%  block body %}
+<textarea></textarea><a href=""><button>Add category</button></a>
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+    <table style="width:50%">
+        <tr> <th>category_id</th><th>category</th><th>Edit Category</th></tr><br>
+
+        {% for category in categories %}
+
+            <div><tr><td>{{ category.id }}</td><td>{{ category.name }}</td> <td><a href=""><button>Edit category</button></a></td></tr></div>
+
+        {% endfor %}
+    </table>
+{% endblock %}
